@@ -296,7 +296,6 @@ type tercero_excluido = a: Type -> oo a (no a)
 
 
 (* Ejercicio *)
-// a \/ ¬a => ¬(¬a)
 let lte_implica_edn (lte: tercero_excluido) (#a: Type) : eliminacion_doble_neg =
   fun #a nna ->
     match lte a with
