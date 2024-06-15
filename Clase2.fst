@@ -296,9 +296,12 @@ type tercero_excluido = a: Type -> oo a (no a)
 
 
 (* Ejercicio *)
-
-let lte_implica_edn (lte: tercero_excluido) (#a: Type) : eliminacion_doble_neg = admit ()
-
+// a \/ ¬a => ¬(¬a)
+let lte_implica_edn (lte: tercero_excluido) (#a: Type) : eliminacion_doble_neg =
+  fun #a nna ->
+    match lte a with
+    | Inl a -> a
+    | Inr na -> nna na
 
 
 (* Ejercicio. ¡Difícil! *)
@@ -314,6 +317,10 @@ es clásica. *)
 
 type peirce = #a: Type -> #b: Type -> ((a -> b) -> a) -> a
 
-let lte_implica_peirce (lte: tercero_excluido) : peirce = admit ()
+let lte_implica_peirce (lte: tercero_excluido) : peirce =
+  fun #a #b ->
+    match lte a with
+    | Inl x -> fun (f: (a -> b) -> a) -> x
+    | Inr na -> fun (f: (a -> b) -> a) -> f na
 
-let peirce_implica_lte (pp: peirce) : tercero_excluido = admit ()
+let peirce_implica_lte (pp: peirce) : tercero_excluido = admit()
